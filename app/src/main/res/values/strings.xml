@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Floating Keyboard</string>
+    <string name="tile_label">Float Keyboard</string>
+    <string name="service_desc">Shows a floating keyboard over other apps and types into the focused text field.</string>
+</resources>
