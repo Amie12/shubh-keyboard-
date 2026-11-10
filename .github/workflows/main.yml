@@ -1,7 +1,6 @@
 name: Build APK
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
@@ -14,6 +13,12 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
+
+      - name: Keep the same signing key between builds
+        uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: float-debug-keystore-v1
 
       - uses: gradle/actions/setup-gradle@v4
         with:
