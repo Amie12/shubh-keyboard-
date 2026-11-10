@@ -535,4 +535,41 @@ class KeyboardService : AccessibilityService() {
         var a = n.textSelectionStart; var b = n.textSelectionEnd
         if (a < 0 || b < 0) { a = cur.length; b = cur.length }
         val start = minOf(a, b).coerceIn(0, cur.length)
-        val end = maxOf
+                val end = maxOf(a, b).coerceIn(0, cur.length)
+        setText(n, cur.substring(0, start) + s + cur.substring(end), start + s.length)
+    }
+
+    private fun backspace() {
+        val n = targetField()
+        if (n == null) {
+            if (padText.isNotEmpty()) padText = padText.dropLast(1)
+            updatePad()
+            return
+        }
+        val cur = currentText(n)
+        var a = n.textSelectionStart; var b = n.textSelectionEnd
+        if (a < 0 || b < 0) { a = cur.length; b = cur.length }
+        val start = minOf(a, b).coerceIn(0, cur.length)
+        val end = maxOf(a, b).coerceIn(0, cur.length)
+        if (start != end) {
+            setText(n, cur.substring(0, start) + cur.substring(end), start)
+        } else if (start > 0) {
+            setText(n, cur.substring(0, start - 1) + cur.substring(end), start - 1)
+        }
+    }
+
+    private fun enter() {
+        val n = targetField()
+        if (n == null) {
+            padText += "\n"
+            updatePad()
+            return
+        }
+        val imeEnter = AccessibilityNodeInfo.AccessibilityAction.ACTION_IME_ENTER
+        if (Build.VERSION.SDK_INT >= 30 && n.actionList.contains(imeEnter)) {
+            n.performAction(imeEnter.id)
+        } else {
+            typeText("\n")
+        }
+    }
+}
