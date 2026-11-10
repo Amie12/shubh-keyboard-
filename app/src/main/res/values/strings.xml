@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Floating Keyboard</string>
-    <string name="tile_label">Float Keyboard</string>
-    <string name="service_desc">Shows a floating keyboard over other apps and types into the focused text field.</string>
+    <string name="app_name">FLOAT</string>
+    <string name="tile_label">FLOAT</string>
+    <string name="service_desc">FLOAT shows a floating keyboard over other apps and types into the focused text field, or into its own typing pad when no field is active.</string>
 </resources>
